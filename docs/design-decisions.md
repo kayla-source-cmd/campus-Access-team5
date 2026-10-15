@@ -1,0 +1,1 @@
+update_request does not check workflow order. The transition checks (requested -> approved -> issued -> returned) are enforced in workflow.py (Engineer B).
