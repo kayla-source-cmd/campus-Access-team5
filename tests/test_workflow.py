@@ -57,6 +57,21 @@ class WorkflowTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 workflow.approve_request(bad, "M01")
 
+    def test_unknown_and_malformed_ids_are_rejected_for_issue_and_return(self):
+        for bad in ("A999", "X001", "A00١", ""):
+            with self.assertRaises(ValueError):
+                workflow.issue_card(bad)
+            with self.assertRaises(ValueError):
+                workflow.return_card(bad)
+
+    def test_cannot_approve_after_issue_and_record_unchanged(self):
+        workflow.approve_request(self.rid, "M01")
+        workflow.issue_card(self.rid)
+        before = storage.get_request(self.rid)
+        with self.assertRaises(ValueError):
+            workflow.approve_request(self.rid, "M02")
+        self.assertEqual(storage.get_request(self.rid), before)
+
 
 if __name__ == "__main__":
     unittest.main()
