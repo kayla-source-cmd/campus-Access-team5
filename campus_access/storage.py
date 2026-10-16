@@ -9,7 +9,6 @@ from campus_access.constants import (
     ID_PREFIX,
     REQUEST_FIELDS,
     STATUS_REQUESTED,
-    STATUS_APPROVED,
 )
 from campus_access.validation import (
     validate_approver,
